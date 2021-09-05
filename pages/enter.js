@@ -2,12 +2,13 @@ import { auth, firestore, googleAuthProvider } from "../lib/firebase";
 import { UserContext } from "../lib/context";
 import { useEffect, useState, useCallback, useContext } from "react";
 import debounce from "lodash.debounce";
-
+import MetaTags from "../components/Metatags";
 export default function Enter(props) {
   const { user, username } = useContext(UserContext);
 
   return (
     <main>
+      <MetaTags title="Enter" description="Sign up for this amazing app!" />
       {user ? (
         !username ? (
           <UsernameForm />
@@ -72,7 +73,7 @@ function UsernameForm() {
         const ref = firestore.doc(`usernames/${username}`);
         const { exists } = await ref.get();
         console.log("Firestore read executed!");
-        setIsValid(!exists);  
+        setIsValid(!exists);
         setLoading(false);
       }
     }, 500),
