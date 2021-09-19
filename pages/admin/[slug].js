@@ -4,7 +4,7 @@ import { firestore, auth, serverTimestamp } from "../../lib/firebase";
 
 import { useState } from "react";
 import { useRouter } from "next/router";
-
+import ImageUploader from "../../components/ImageUploader"
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { useForm } from "react-hook-form";
 import ReactMarkdown from "react-markdown";
@@ -63,10 +63,11 @@ function PostManager() {
 }
 
 function PostForm({ defaultValues, postRef, preview }) {
-  const { register, handleSubmit, reset, watch } = useForm({
+  const { register, handleSubmit, reset, watch,formState,errors } = useForm({
     defaultValues,
     mode: "onChange",
   });
+  const {isValid,isDirty} =formState;
 
   const updatePost = async ({ content, published }) => {
     await postRef.update({
@@ -89,7 +90,16 @@ function PostForm({ defaultValues, postRef, preview }) {
       )}
 
       <div className={preview ? styles.hidden : styles.controls}>
-        <textarea {...register("content")}></textarea>
+
+        <ImageUploader/>
+        
+      <textarea name="content" ref={register({
+            maxLength: { value: 20000, message: 'content is too long' },
+            minLength: { value: 10, message: 'content is too short' },
+            required: { value: true, message: 'content is required'}
+          })}>
+      </textarea>
+      {errors.content && <p className="text-danger">{errors.content.message}</p>}
 
         <fieldset>
           <input
@@ -100,8 +110,9 @@ function PostForm({ defaultValues, postRef, preview }) {
           />
           <label>Published</label>
         </fieldset>
-
-        <button type="submit" className="btn-green">
+        
+        //I decide not to use isDirty because i dont think its necessery
+        <button type="submit" className="btn-green" disabled={!isValid}>
           Save Changes
         </button>
       </div>
