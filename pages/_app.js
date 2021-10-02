@@ -4,7 +4,6 @@ import { UserContext } from "../lib/context";
 import { useContext } from "react";
 import "../styles/globals.css";
 import { useUserData } from "../lib/hooks";
-import Intro from "../components/Intro";
 import { auth } from "../lib/firebase";
 
 function MyApp({ Component, pageProps }) {
@@ -14,7 +13,6 @@ function MyApp({ Component, pageProps }) {
   return (
     <UserContext.Provider value={userData}>
       <Navbar />
-       <Intro />
       <Component {...pageProps} />
       <Toaster />
     </UserContext.Provider>

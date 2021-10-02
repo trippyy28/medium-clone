@@ -2,6 +2,9 @@ import PostFeed from "../components/PostFeed";
 import Loader from "../components/Loader";
 import { firestore, fromMillis, postToJSON } from "../lib/firebase";
 import { useState } from "react";
+import { UserContext } from "../lib/context";
+import { useContext } from "react";
+import Intro from "../components/Intro";
 
 // Max post to query per page
 const LIMIT = 1;
@@ -25,6 +28,8 @@ export default function Home(props) {
   const [loading, setLoading] = useState(false);
 
   const [postsEnd, setPostsEnd] = useState(false);
+  const { user, username } = useContext(UserContext);
+  console.log(username)
   console.log(posts);
   const getMorePosts = async () => {
     setLoading(true);
@@ -49,6 +54,10 @@ export default function Home(props) {
   };
 
   return (
+    <div>
+      {!username&&
+      <Intro/>
+}
     <main>
       <PostFeed posts={posts} />
 
@@ -60,5 +69,6 @@ export default function Home(props) {
 
       {postsEnd && "You have reached the end!"}
     </main>
+    </div>
   );
 }
