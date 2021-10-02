@@ -7,6 +7,7 @@
   --color-red: #df3b3b;
   --color-green: #3bdf72;
   --color-gray: #8e9fae;
+  --color-mediumblue: rgb(192, 226, 253);
 }
 html,
 body {
@@ -15,7 +16,7 @@ body {
   font-family: "Noto Sans", sans-serif;
   background-color: var(--color-bg);
   color: var(--color-text);
-  margin-top: 50px;
+  margin-top: 35px;
 }
 
 main {
@@ -70,7 +71,7 @@ code {
 .navbar {
   height: 70px;
   width: 100%;
-  background: white;
+  background: var(--color-mediumblue);
   color: var(--colors-text);
   position: fixed;
   top: 0;
@@ -101,6 +102,34 @@ code {
   border-radius: 50%;
 }
 
+/* Intro */
+.intro {
+  height: 200px;
+  width: 100%;
+  background: var(--color-mediumblue);
+  border-bottom: 1px solid var(--color-gray);
+  padding: 0 10vw;
+  line-height: 20px;
+}
+
+.intro h1 {
+  position: relative;
+  top: 20px;
+}
+
+.intro img {
+  position: relative;
+  left: 600px;
+  bottom: 118px;
+}
+@media only screen and (max-width: 768px) {
+  .intro {
+    line-height: 20px;
+  }
+  .intro img {
+    display: none;
+  }
+}
 /* Buttons */
 
 .btn,
